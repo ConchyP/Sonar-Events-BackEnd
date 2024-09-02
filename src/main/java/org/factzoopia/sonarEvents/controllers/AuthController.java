@@ -1,11 +1,11 @@
-package org.factzoopia.sonarEvents.controllers;
-
+package  org.factzoopia.sonarEvents.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "${api-endpoint}")
-
 public class AuthController {
-     @GetMapping(path = "/login")
+
+    @GetMapping(path = "/login")
     public ResponseEntity<Map<String, String>> login() {
 
         SecurityContext contextHolder = SecurityContextHolder.getContext();
-        org.springframework.security.core.Authentication auth = contextHolder.getAuthentication();
+        Authentication auth = contextHolder.getAuthentication();
 
         Map<String,String> json = new HashMap<>();
         json.put("message", "Logged");
@@ -30,4 +30,4 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(json);
     }
 
-}   
+}

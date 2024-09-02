@@ -1,32 +1,30 @@
 package org.factzoopia.sonarEvents.services;
 
 
-import org.factzoopia.sonarEvents.models.SecurityAdmin;
-import org.factzoopia.sonarEvents.repositories.AdminRepository;
+
+import org.factzoopia.sonarEvents.models.SecurityUser;
+import org.factzoopia.sonarEvents.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class JpaUserDetailsService implements UserDetailsService{
+public class JpaUserDetailsService implements UserDetailsService {
 
-    AdminRepository repository;
+    UserRepository repository;
 
-    
-    public JpaUserDetailsService(AdminRepository repository) {
+    public JpaUserDetailsService(UserRepository repository) {
         this.repository = repository;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         return repository
             .findByEmail(username)
-            .map(SecurityAdmin::new)
-            .orElseThrow(() -> new UsernameNotFoundException("Admin not found: " + username));
+            .map(SecurityUser::new)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 
-    
 }
