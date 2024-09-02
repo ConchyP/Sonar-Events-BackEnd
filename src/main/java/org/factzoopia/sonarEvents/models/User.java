@@ -8,12 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")  // Nombre de la tabla en la base de datos
+@Table(name = "users")  
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")  // Nombre de la columna en la tabla
+    @Column(name = "user_id")  
     private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -23,18 +23,17 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role = "ROLE_USER";  // Asignación predeterminada del rol de usuario
-
+    private String role = "ROLE_USER";  
     public User() {
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.role = "ROLE_USER";  // Asignación predeterminada del rol de usuario
+        this.role = "ROLE_USER";  
     }
 
-    // Getters y Setters
+   
     public Long getId() {
         return id;
     }
