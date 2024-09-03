@@ -1,11 +1,11 @@
 package org.factzoopia.sonarEvents.models;
 
-import jakarta.persistence.Column;
+/* import jakarta.persistence.Column; */
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+/* import jakarta.persistence.Table; */
 
 @Entity
 @Table(name = "users")  
@@ -16,10 +16,10 @@ public class User {
     @Column(name = "user_id")  
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+  /*   @Column(name = "email", nullable = false, unique = true) */
     private String email;
 
-    @Column(name = "password", nullable = false)
+   /*  @Column(name = "password", nullable = false) */
     private String password;
 
     @Column(name = "role")
