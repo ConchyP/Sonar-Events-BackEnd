@@ -1,36 +1,37 @@
 package org.factzoopia.sonarEvents.models;
 
-import jakarta.persistence.Column; 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
- import jakarta.persistence.Table; 
+import java.util.Set;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")  
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")  
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true) 
+    @Column(name = "username")
     private String email;
 
-   @Column(name = "password", nullable = false) 
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    private String role = "ROLE_USER";  
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "roles_users",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
     public User() {
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.role = "ROLE_USER";  
     }
 
    
@@ -58,11 +59,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
