@@ -22,7 +22,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();  // Aquí se usa 'getEmail' en lugar de 'getUsername'
+        return user.getUsername();  // Aquí se usa 'getEmail' en lugar de 'getUsername'
     }
 
     @Override
