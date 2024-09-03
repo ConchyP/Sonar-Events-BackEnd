@@ -19,7 +19,7 @@ class EventTest {
         futureDate = new Timestamp(System.currentTimeMillis() + 100000); 
         pastDate = new Timestamp(System.currentTimeMillis() - 100000);   
 
-        event = new Event(1L, "Test Event", futureDate, true, false, 100, 50, "Test Description", "test_image.jpg");
+        event = new Event(1L, "Test Event", futureDate, "Gijon", true, false, 100, 50, "Test Description", "test_image.jpg");
     }
 
     @Test
@@ -71,6 +71,9 @@ class EventTest {
 
         event.setTitle("New Title");
         assertEquals("New Title", event.getTitle());
+
+        event.setPlace("Gijon");
+        assertEquals("Gijon", event.getPlace());
 
         event.setDate(pastDate);
         assertEquals(pastDate, event.getDate());

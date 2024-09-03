@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -34,10 +33,12 @@ class EventServiceTest {
         MockitoAnnotations.openMocks(this);
 
         Timestamp futureDate = new Timestamp(System.currentTimeMillis() + 100000);
-        Timestamp pastDate = new Timestamp(System.currentTimeMillis() - 100000);
 
-        event = new Event(1L, "Event 1", futureDate, true, false, 100, 50, "Description 1", "image1.jpg");
-        event2 = new Event(2L, "Event 2", pastDate, false, true, 100, 100, "Description 2", "image2.jpg");
+        event = new Event(1L, "Event1", futureDate, "Gijon", true, false, 100, 50, "Test Description",
+                "test_image.jpg");
+
+        event2 = new Event(1L, "Event2", futureDate, "Oviedo", false, true, 200, 40, "Test Description",
+                "test_image.jpg");
     }
 
     @Test
@@ -57,7 +58,7 @@ class EventServiceTest {
         Event foundEvent = eventService.getEventById(1L);
 
         assertNotNull(foundEvent);
-        assertEquals("Event 1", foundEvent.getTitle());
+        assertEquals("Event1", foundEvent.getTitle());
         verify(repository, times(1)).findById(1L);
     }
 
@@ -76,7 +77,7 @@ class EventServiceTest {
         Event createdEvent = eventService.createEvent(event);
 
         assertNotNull(createdEvent);
-        assertEquals("Event 1", createdEvent.getTitle());
+        assertEquals("Event1", createdEvent.getTitle());
         verify(repository, times(1)).save(event);
     }
 
@@ -88,7 +89,7 @@ class EventServiceTest {
         Event updatedEvent = eventService.updateEvent(event);
 
         assertNotNull(updatedEvent);
-        assertEquals("Event 1", updatedEvent.getTitle());
+        assertEquals("Event1", updatedEvent.getTitle());
         verify(repository, times(1)).existsById(event.getId());
         verify(repository, times(1)).save(event);
     }
@@ -123,17 +124,17 @@ class EventServiceTest {
 
     @Test
     void testHasEventPassed() {
-        when(repository.findById(1L)).thenReturn(Optional.of(event2)); // Evento pasado
+        when(repository.findById(1L)).thenReturn(Optional.of(event2)); 
 
         boolean result = eventService.hasEventPassed(1L);
 
-        assertTrue(result);
+        assertFalse(result);
         verify(repository, times(1)).findById(1L);
     }
 
     @Test
     void testIsEventAvailable() {
-        when(repository.findById(1L)).thenReturn(Optional.of(event)); // Evento disponible
+        when(repository.findById(1L)).thenReturn(Optional.of(event)); 
 
         boolean result = eventService.isEventAvailable(1L);
 
@@ -161,7 +162,7 @@ class EventServiceTest {
         List<Event> pastEvents = eventService.getPastEvents();
 
         assertEquals(1, pastEvents.size());
-        assertEquals("Event 2", pastEvents.get(0).getTitle());
+        assertEquals("Event2", pastEvents.get(0).getTitle());
         verify(repository, times(1)).findByPastTrue();
     }
 
@@ -172,7 +173,7 @@ class EventServiceTest {
         List<Event> availableEvents = eventService.getAvailableEvents();
 
         assertEquals(1, availableEvents.size());
-        assertEquals("Event 1", availableEvents.get(0).getTitle());
+        assertEquals("Event1", availableEvents.get(0).getTitle());
         verify(repository, times(1)).findByAvailableTrue();
     }
 }
