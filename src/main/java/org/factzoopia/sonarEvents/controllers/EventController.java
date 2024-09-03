@@ -29,7 +29,7 @@ public class EventController {
         this.eventService = eventService;
 }
 
-@GetMapping(path = "/all")
+@GetMapping(path = "/allevents")
   public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return ResponseEntity.ok(events);
