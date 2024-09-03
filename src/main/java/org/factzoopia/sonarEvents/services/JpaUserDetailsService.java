@@ -22,7 +22,7 @@ public class JpaUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return repository
-            .findByEmail(username)
+            .findByUsername(username)
             .map(SecurityUser::new)
             .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
