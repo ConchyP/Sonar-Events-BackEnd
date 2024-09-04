@@ -43,21 +43,23 @@ public class SecurityConfig {
                 .logoutUrl(endpoint + "/logout")
                 .deleteCookies("JSESSIONID"))
             .authorizeHttpRequests(auth -> auth
-                // .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                 .requestMatchers(HttpMethod.POST, endpoint + "/register").permitAll()
-                .requestMatchers(HttpMethod.GET, endpoint + "/events/**").permitAll()
+                .requestMatchers(HttpMethod.GET, endpoint + "/events/allevents").permitAll()
+                .requestMatchers(HttpMethod.DELETE, endpoint + "/events/**").permitAll()
+                .requestMatchers(HttpMethod.PUT, endpoint + "/events/**").permitAll()
+                .requestMatchers(HttpMethod.POST, endpoint + "/events/**").permitAll()
                 .requestMatchers(HttpMethod.GET, endpoint + "/login").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, endpoint + "/events").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, endpoint + "/events").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, endpoint + "/events").hasRole( "ADMIN")
+                //.requestMatchers(HttpMethod.POST, endpoint + "/events").hasRole("ADMIN")
+                //.requestMatchers(HttpMethod.PUT, endpoint + "/events").hasRole("ADMIN")
+                //.requestMatchers(HttpMethod.DELETE, endpoint + "/events").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .userDetailsService(jpaUserDetailsService)
             .httpBasic(basic -> basic.authenticationEntryPoint(myBasicAuthenticationEntryPoint))
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-
+    
         http.headers(header -> header.frameOptions(frame -> frame.sameOrigin()));
-
+    
         return http.build();
     }
 
@@ -67,7 +69,8 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization"));
+        //configuration.setAllowedHeaders(Arrays.asList("Authorization"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
