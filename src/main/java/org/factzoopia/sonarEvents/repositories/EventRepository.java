@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    List<Event> findByPastTrue();  // Creo que con esto podemos hacer consulta de eventos pasados
+    List<Event> findByPastTrue();  
 
-    List<Event> findByAvailableTrue(); // Y con esto la consulta de si estan disponibles
+    List<Event> findByAvailableTrue(); 
 }

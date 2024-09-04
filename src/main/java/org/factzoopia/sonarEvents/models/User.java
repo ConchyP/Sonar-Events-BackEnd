@@ -34,7 +34,7 @@ public class User {
         this.password = password;
     }
 
-    // Getters y Setters
+   
     public Long getId() {
         return id;
     }

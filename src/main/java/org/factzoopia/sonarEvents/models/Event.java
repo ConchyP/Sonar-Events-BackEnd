@@ -13,16 +13,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "events")
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_event")
     private Long id;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "date")
-    private Timestamp date;  
+    private Timestamp date; 
+    
+    @Column(name = "place")
+    private String place; 
 
     @Column(name = "available")
     private Boolean available;
@@ -43,14 +47,15 @@ public class Event {
     private String image;
 
     public Event() {
-        
     }
 
-    public Event(Long id, String title, Timestamp date, Boolean available, Boolean past, Integer maxParticipants,
-            Integer registeredParticipants, String description, String image) {
+
+    public Event(Long id, String title, Timestamp date, String place, Boolean available, Boolean past,
+            Integer maxParticipants, Integer registeredParticipants, String description, String image) {
         this.id = id;
         this.title = title;
         this.date = date;
+        this.place = place;
         this.available = available;
         this.past = past;
         this.maxParticipants = maxParticipants;
@@ -58,6 +63,8 @@ public class Event {
         this.description = description;
         this.image = image;
     }
+
+
 
     public boolean hasEventPassed() {
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
@@ -78,7 +85,6 @@ public class Event {
             throw new IllegalStateException("The event is not available for more participants.");
         }
     }
-
 
     public Long getId() {
         return id;
@@ -150,6 +156,14 @@ public class Event {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
 }
