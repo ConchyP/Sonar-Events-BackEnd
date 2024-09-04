@@ -5,7 +5,6 @@ import java.util.List;
 import org.factzoopia.sonarEvents.models.Event;
 import org.factzoopia.sonarEvents.services.EventService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,7 @@ public class EventController {
 
     private final EventService eventService;
 
-    @Autowired
+    
     public EventController(EventService eventService) {
         this.eventService = eventService;
 }

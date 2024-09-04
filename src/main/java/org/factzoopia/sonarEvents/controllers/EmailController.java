@@ -2,7 +2,6 @@ package org.factzoopia.sonarEvents.controllers;
 
 import org.factzoopia.sonarEvents.models.Email;
 import org.factzoopia.sonarEvents.services.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,7 +17,7 @@ public class EmailController{
     
     private final EmailService emailService;
 
-   @Autowired
+   
    public EmailController(EmailService emailService) {
        this.emailService = emailService;
    }
