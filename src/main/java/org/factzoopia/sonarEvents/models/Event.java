@@ -46,8 +46,7 @@ public class Event {
     @Column(name = "image")
     private String image;
 
-    public Event(long l, String string, Timestamp futureDate, boolean b, boolean c, int i, int j, String string2, String string3) {
-        
+    public Event() {
     }
 
 
