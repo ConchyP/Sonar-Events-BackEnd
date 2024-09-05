@@ -1,5 +1,6 @@
 package org.factzoopia.sonarEvents.repositories;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.factzoopia.sonarEvents.models.Event;
@@ -12,4 +13,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByPastTrue();  
 
     List<Event> findByAvailableTrue(); 
+
+    List<Event> findByDateBefore(Timestamp date);
 }

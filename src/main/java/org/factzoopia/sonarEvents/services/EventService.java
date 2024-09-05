@@ -1,5 +1,6 @@
 package org.factzoopia.sonarEvents.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.factzoopia.sonarEvents.exceptions.EventsNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EventService {
+    
 
     @Autowired
     private EventRepository repository;
@@ -58,7 +60,8 @@ public class EventService {
     }
 
     public List<Event> getPastEvents() {
-        return repository.findByPastTrue();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        return repository.findByDateBefore(now);
     }
 
     public List<Event> getAvailableEvents() {
