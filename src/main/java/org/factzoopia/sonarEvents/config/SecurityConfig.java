@@ -45,6 +45,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, endpoint + "/register").permitAll()
                 .requestMatchers(HttpMethod.GET, endpoint + "/events/allevents").permitAll()
+                .requestMatchers(HttpMethod.GET, endpoint + "/events/past").permitAll()
                 .requestMatchers(HttpMethod.DELETE, endpoint + "/events/**").permitAll()
                 .requestMatchers(HttpMethod.PUT, endpoint + "/events/**").permitAll()
                 .requestMatchers(HttpMethod.POST, endpoint + "/events/**").permitAll()
